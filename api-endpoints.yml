@@ -1,0 +1,762 @@
+openapi: 3.0.3
+info:
+  title: Hospital Management System API
+  description: RESTful API for Rearview Hospital Management System
+  version: 1.0.0
+  contact:
+    name: Lwazi Jiyane
+    email: lwazi@hospital.com
+servers:
+  - url: http://localhost:8080/hospital/api
+    description: Local development server
+
+paths:
+  # Authentication
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: admin
+                password:
+                  type: string
+                  example: admin123
+      responses:
+        '200':
+          description: Login successful
+        '401':
+          description: Invalid credentials
+
+  # Patients
+  /patients:
+    get:
+      tags:
+        - Patients
+      summary: Get all patients
+      responses:
+        '200':
+          description: List of patients
+    post:
+      tags:
+        - Patients
+      summary: Create new patient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '201':
+          description: Patient created
+
+  /patients/{id}:
+    get:
+      tags:
+        - Patients
+      summary: Get patient by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Patient details
+    put:
+      tags:
+        - Patients
+      summary: Update patient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: Patient updated
+    delete:
+      tags:
+        - Patients
+      summary: Delete patient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Patient deleted
+
+  /patients/search:
+    get:
+      tags:
+        - Patients
+      summary: Search patients
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: bloodType
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+
+  # Doctors
+  /doctors:
+    get:
+      tags:
+        - Doctors
+      summary: Get all doctors
+      responses:
+        '200':
+          description: List of doctors
+    post:
+      tags:
+        - Doctors
+      summary: Create new doctor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Doctor'
+      responses:
+        '201':
+          description: Doctor created
+
+  /doctors/{id}:
+    get:
+      tags:
+        - Doctors
+      summary: Get doctor by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Doctor details
+    put:
+      tags:
+        - Doctors
+      summary: Update doctor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Doctor'
+      responses:
+        '200':
+          description: Doctor updated
+    delete:
+      tags:
+        - Doctors
+      summary: Delete doctor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Doctor deleted
+
+  /doctors/specialization/{spec}:
+    get:
+      tags:
+        - Doctors
+      summary: Get doctors by specialization
+      parameters:
+        - name: spec
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Doctors with specialization
+
+  # Departments
+  /departments:
+    get:
+      tags:
+        - Departments
+      summary: Get all departments
+      responses:
+        '200':
+          description: List of departments
+    post:
+      tags:
+        - Departments
+      summary: Create new department
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+      responses:
+        '201':
+          description: Department created
+
+  /departments/{id}:
+    get:
+      tags:
+        - Departments
+      summary: Get department by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Department details
+    put:
+      tags:
+        - Departments
+      summary: Update department
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+      responses:
+        '200':
+          description: Department updated
+    delete:
+      tags:
+        - Departments
+      summary: Delete department
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Department deleted
+
+  /departments/{id}/doctors:
+    get:
+      tags:
+        - Departments
+      summary: Get doctors in department
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Doctors in department
+
+  # Appointments
+  /appointments:
+    get:
+      tags:
+        - Appointments
+      summary: Get all appointments
+      responses:
+        '200':
+          description: List of appointments
+    post:
+      tags:
+        - Appointments
+      summary: Create new appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '201':
+          description: Appointment created
+
+  /appointments/{id}:
+    get:
+      tags:
+        - Appointments
+      summary: Get appointment by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Appointment details
+    put:
+      tags:
+        - Appointments
+      summary: Update appointment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '200':
+          description: Appointment updated
+    delete:
+      tags:
+        - Appointments
+      summary: Delete appointment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Appointment deleted
+
+  /appointments/patient/{id}:
+    get:
+      tags:
+        - Appointments
+      summary: Get patient appointments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Patient appointments
+
+  /appointments/doctor/{id}:
+    get:
+      tags:
+        - Appointments
+      summary: Get doctor appointments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Doctor appointments
+
+  /appointments/{id}/status:
+    put:
+      tags:
+        - Appointments
+      summary: Update appointment status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [SCHEDULED, CONFIRMED, COMPLETED, CANCELLED]
+      responses:
+        '200':
+          description: Status updated
+
+  # Staff
+  /staff:
+    get:
+      tags:
+        - Staff
+      summary: Get all staff
+      responses:
+        '200':
+          description: List of staff
+    post:
+      tags:
+        - Staff
+      summary: Create new staff
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Staff'
+      responses:
+        '201':
+          description: Staff created
+
+  /staff/{id}:
+    get:
+      tags:
+        - Staff
+      summary: Get staff by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Staff details
+    put:
+      tags:
+        - Staff
+      summary: Update staff
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Staff'
+      responses:
+        '200':
+          description: Staff updated
+    delete:
+      tags:
+        - Staff
+      summary: Delete staff
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Staff deleted
+
+  /staff/role/{role}:
+    get:
+      tags:
+        - Staff
+      summary: Get staff by role
+      parameters:
+        - name: role
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [ADMIN, DOCTOR, NURSE, RECEPTIONIST, LAB_TECH, PHARMACIST]
+      responses:
+        '200':
+          description: Staff with role
+
+  # Prescriptions
+  /prescriptions:
+    get:
+      tags:
+        - Prescriptions
+      summary: Get all prescriptions
+      responses:
+        '200':
+          description: List of prescriptions
+    post:
+      tags:
+        - Prescriptions
+      summary: Create new prescription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Prescription'
+      responses:
+        '201':
+          description: Prescription created
+
+  /prescriptions/{id}:
+    get:
+      tags:
+        - Prescriptions
+      summary: Get prescription by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Prescription details
+    put:
+      tags:
+        - Prescriptions
+      summary: Update prescription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Prescription'
+      responses:
+        '200':
+          description: Prescription updated
+    delete:
+      tags:
+        - Prescriptions
+      summary: Delete prescription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Prescription deleted
+
+  /prescriptions/patient/{id}:
+    get:
+      tags:
+        - Prescriptions
+      summary: Get patient prescriptions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Patient prescriptions
+
+  /prescriptions/doctor/{id}:
+    get:
+      tags:
+        - Prescriptions
+      summary: Get doctor prescriptions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Doctor prescriptions
+
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        patientId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum: [Male, Female, Other]
+        address:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        bloodType:
+          type: string
+          enum: [A+, A-, B+, B-, AB+, AB-, O+, O-]
+        registrationDate:
+          type: string
+          format: date
+        insuranceProvider:
+          type: string
+        insurancePolicyNumber:
+          type: string
+
+    Doctor:
+      type: object
+      properties:
+        doctorId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        specialization:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        joiningDate:
+          type: string
+          format: date
+        qualification:
+          type: string
+        departmentId:
+          type: integer
+        licenseNumber:
+          type: string
+        yearsOfExperience:
+          type: integer
+
+    Department:
+      type: object
+      properties:
+        departmentId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        headDoctorId:
+          type: integer
+        staffCount:
+          type: integer
+        contactNumber:
+          type: string
+
+    Appointment:
+      type: object
+      properties:
+        appointmentId:
+          type: integer
+        patientId:
+          type: integer
+        doctorId:
+          type: integer
+        appointmentDate:
+          type: string
+          format: date
+        appointmentTime:
+          type: string
+          format: time
+        status:
+          type: string
+          enum: [SCHEDULED, CONFIRMED, COMPLETED, CANCELLED, PENDING]
+        description:
+          type: string
+        durationMinutes:
+          type: integer
+        appointmentType:
+          type: string
+          enum: [CHECKUP, CONSULTATION, FOLLOWUP, EMERGENCY]
+
+    Staff:
+      type: object
+      properties:
+        staffId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        role:
+          type: string
+          enum: [ADMIN, DOCTOR, NURSE, RECEPTIONIST, LAB_TECH, PHARMACIST]
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        joiningDate:
+          type: string
+          format: date
+        departmentId:
+          type: integer
+        address:
+          type: string
+        qualification:
+          type: string
+        emergencyContact:
+          type: string
+
+    Prescription:
+      type: object
+      properties:
+        prescriptionId:
+          type: integer
+        patientId:
+          type: integer
+        doctorId:
+          type: integer
+        prescriptionDate:
+          type: string
+          format: date
+        medication:
+          type: string
+        dosage:
+          type: string
+        instructions:
+          type: string
+        validUntil:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [ACTIVE, EXPIRED, CANCELLED]
+        notes:
+          type: string
