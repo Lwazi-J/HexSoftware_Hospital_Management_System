@@ -34,7 +34,7 @@ public class DoctorController {
         return new ResponseEntity<>(createdDoctor, HttpStatus.CREATED);
     }
 
-    @PutMapping("/doctors/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Doctor> updateDoctor(
             @PathVariable Long id,
             @RequestBody Doctor doctor) {

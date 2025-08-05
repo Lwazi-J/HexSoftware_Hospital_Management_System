@@ -35,7 +35,7 @@ public class PatientController {
         return new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
     }
 
-    @PutMapping("/patients/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(
             @PathVariable Long id,
             @RequestBody @Valid Patient patient) {

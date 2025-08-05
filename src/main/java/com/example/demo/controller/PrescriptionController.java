@@ -35,7 +35,7 @@ public class PrescriptionController {
         return new ResponseEntity<>(createdPrescription, HttpStatus.CREATED);
     }
 
-    @PutMapping("/prescriptions/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Prescription> updatePrescription(
             @PathVariable Long id,
             @RequestBody @Valid Prescription prescription) {

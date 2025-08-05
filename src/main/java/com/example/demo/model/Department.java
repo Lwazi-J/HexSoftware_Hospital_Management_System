@@ -9,7 +9,7 @@ public class Department {
     private String location;
     private String headDoctorId;
     private Integer staffCount;
-    private Date establishedDate;
+
     private String contactNumber;
 
     // Constructors
@@ -35,8 +35,7 @@ public class Department {
     public void setHeadDoctorId(String headDoctorId) { this.headDoctorId = headDoctorId; }
     public Integer getStaffCount() { return staffCount; }
     public void setStaffCount(Integer staffCount) { this.staffCount = staffCount; }
-    public Date getEstablishedDate() { return establishedDate; }
-    public void setEstablishedDate(Date establishedDate) { this.establishedDate = establishedDate; }
+
     public String getContactNumber() { return contactNumber; }
     public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
 }

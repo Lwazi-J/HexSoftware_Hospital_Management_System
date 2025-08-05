@@ -17,10 +17,10 @@ public class DepartmentRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private static final String INSERT_SQL = "INSERT INTO departments (name, description, location, head_doctor_id, staff_count, established_date, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_SQL = "INSERT INTO departments (name, description, location, staff_count, contact_number) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_SQL = "SELECT * FROM departments";
     private static final String SELECT_BY_ID_SQL = "SELECT * FROM departments WHERE department_id = ?";
-    private static final String UPDATE_SQL = "UPDATE departments SET name = ?, description = ?, location = ?, head_doctor_id = ?, staff_count = ?, contact_number = ? WHERE department_id = ?";
+    private static final String UPDATE_SQL = "UPDATE departments SET name = ?, description = ?, location = ?, staff_count = ?, contact_number = ? WHERE department_id = ?";
     private static final String DELETE_SQL = "DELETE FROM departments WHERE department_id = ?";
     private static final String FIND_DOCTORS_BY_DEPARTMENT_SQL = "SELECT * FROM doctors WHERE department_id = ?";
 
@@ -29,9 +29,7 @@ public class DepartmentRepository {
                 department.getName(),
                 department.getDescription(),
                 department.getLocation(),
-                department.getHeadDoctorId(),
                 department.getStaffCount(),
-                department.getEstablishedDate(),
                 department.getContactNumber());
         return department;
     }
@@ -49,7 +47,6 @@ public class DepartmentRepository {
                 department.getName(),
                 department.getDescription(),
                 department.getLocation(),
-                department.getHeadDoctorId(),
                 department.getStaffCount(),
                 department.getContactNumber(),
                 department.getDepartmentId());
@@ -63,7 +60,26 @@ public class DepartmentRepository {
     public List<Doctor> findDoctorsByDepartmentId(Long departmentId) {
         return jdbcTemplate.query(FIND_DOCTORS_BY_DEPARTMENT_SQL,
                 new Object[]{departmentId},
-                new DoctorRepository.DoctorRowMapper());
+                new DoctorRowMapper());
+    }
+
+    private static final class DoctorRowMapper implements RowMapper<Doctor> {
+        @Override
+        public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Doctor doctor = new Doctor();
+            doctor.setDoctorId(rs.getLong("doctor_id"));
+            doctor.setFirstName(rs.getString("first_name"));
+            doctor.setLastName(rs.getString("last_name"));
+            doctor.setSpecialization(rs.getString("specialization"));
+            doctor.setPhoneNumber(rs.getString("phone_number"));
+            doctor.setEmail(rs.getString("email"));
+            doctor.setJoiningDate(rs.getDate("joining_date"));
+            doctor.setQualification(rs.getString("qualification"));
+            doctor.setDepartmentId(rs.getLong("department_id"));
+            doctor.setLicenseNumber(rs.getString("license_number"));
+            doctor.setYearsOfExperience(rs.getInt("years_of_experience"));
+            return doctor;
+        }
     }
 
     private static final class DepartmentRowMapper implements RowMapper<Department> {
@@ -74,9 +90,8 @@ public class DepartmentRepository {
             department.setName(rs.getString("name"));
             department.setDescription(rs.getString("description"));
             department.setLocation(rs.getString("location"));
-            department.setHeadDoctorId(String.valueOf(rs.getLong("head_doctor_id")));
+            department.setHeadDoctorId(rs.getObject("head_doctor_id") != null ? String.valueOf(rs.getLong("head_doctor_id")) : null);
             department.setStaffCount(rs.getInt("staff_count"));
-            department.setEstablishedDate(rs.getDate("established_date"));
             department.setContactNumber(rs.getString("contact_number"));
             return department;
         }
