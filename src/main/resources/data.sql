@@ -45,11 +45,11 @@ INSERT INTO patients (first_name, last_name, date_of_birth, gender, address, pho
 
 -- Insert Staff
 INSERT INTO staff (first_name, last_name, role, phone_number, email, joining_date, department_id, address, qualification, emergency_contact) VALUES
-('Admin', 'User', 'ADMIN', '5551112222', 'admin@hospital.com', CURDATE(), NULL, 'Hospital Admin Office', 'MBA', '5550001111'),
-('Nurse', 'Joy', 'NURSE', '5552223333', 'nurse.joy@hospital.com', '2021-02-15', 1, '456 Staff Quarters', 'RN, BSN', '5550002222'),
-('Reception', 'Staff', 'RECEPTIONIST', '5553334444', 'reception@hospital.com', '2020-07-01', NULL, 'Hospital Front Desk', 'Diploma in Hospitality', '5550003333'),
-('Lab', 'Technician', 'LAB_TECH', '5554445555', 'lab@hospital.com', '2022-01-10', 2, '789 Staff Quarters', 'BSc Medical Technology', '5550004444'),
-('Pharmacy', 'Staff', 'PHARMACIST', '5555556666', 'pharmacy@hospital.com', '2021-09-05', 3, '321 Staff Quarters', 'PharmD', '5550005555');
+('Alice', 'Johnson', 'ADMIN', '5551112222', 'alice.johnson@hospital.com', '2020-01-15', NULL, '123 Admin Building', 'MBA Healthcare Management', '5550001111'),
+('Maria', 'Rodriguez', 'NURSE', '5552223333', 'maria.rodriguez@hospital.com', '2021-02-15', 1, '456 Staff Quarters', 'RN, BSN', '5550002222'),
+('James', 'Wilson', 'RECEPTIONIST', '5553334444', 'james.wilson@hospital.com', '2020-07-01', NULL, '789 Front Desk Area', 'Diploma in Healthcare Administration', '5550003333'),
+('Lisa', 'Chen', 'LAB_TECH', '5554445555', 'lisa.chen@hospital.com', '2022-01-10', 2, '321 Laboratory Building', 'BSc Medical Technology', '5550004444'),
+('Robert', 'Martinez', 'PHARMACIST', '5555556666', 'robert.martinez@hospital.com', '2021-09-05', 3, '654 Pharmacy Wing', 'PharmD', '5550005555');
 
 -- Insert Rooms
 INSERT INTO rooms (room_number, room_type, status, department_id, capacity, hourly_rate, floor, special_features) VALUES
@@ -61,11 +61,11 @@ INSERT INTO rooms (room_number, room_type, status, department_id, capacity, hour
 
 -- Insert Appointments
 INSERT INTO appointments (patient_id, doctor_id, appointment_date, appointment_time, status, description, duration_minutes, appointment_type) VALUES
-(1, 1, DATE_ADD(CURDATE(), INTERVAL 1 DAY), '09:00:00', 'SCHEDULED', 'Routine heart checkup', 30, 'CHECKUP'),
-(2, 2, DATE_ADD(CURDATE(), INTERVAL 2 DAY), '10:30:00', 'SCHEDULED', 'Headache consultation', 45, 'CONSULTATION'),
-(3, 3, DATE_ADD(CURDATE(), INTERVAL 3 DAY), '14:00:00', 'SCHEDULED', 'Child vaccination', 15, 'VACCINATION'),
-(4, 4, DATE_ADD(CURDATE(), INTERVAL 1 DAY), '11:00:00', 'CONFIRMED', 'Knee pain evaluation', 30, 'EVALUATION'),
-(5, 5, DATE_ADD(CURDATE(), INTERVAL 5 DAY), '13:30:00', 'PENDING', 'Follow-up visit', 20, 'FOLLOWUP');
+(1, 1, DATE_ADD(CURDATE(), INTERVAL 1 DAY), '09:00:00', 'SCHEDULED', 'Heart checkup for hypertension', 30, 'CHECKUP'),
+(2, 2, DATE_ADD(CURDATE(), INTERVAL 2 DAY), '10:30:00', 'SCHEDULED', 'Migraine consultation', 45, 'CONSULTATION'),
+(3, 3, DATE_ADD(CURDATE(), INTERVAL 3 DAY), '14:00:00', 'SCHEDULED', 'Ear infection follow-up', 15, 'FOLLOWUP'),
+(4, 4, DATE_ADD(CURDATE(), INTERVAL 1 DAY), '11:00:00', 'CONFIRMED', 'Orthopedic consultation', 30, 'CONSULTATION'),
+(5, 1, DATE_ADD(CURDATE(), INTERVAL 5 DAY), '13:30:00', 'PENDING', 'Cardiac follow-up', 20, 'FOLLOWUP');
 
 -- Insert Admissions
 INSERT INTO admissions (patient_id, room_id, admission_date, discharge_date, reason, status, attending_doctor_id, notes, total_charges) VALUES
@@ -75,20 +75,24 @@ INSERT INTO admissions (patient_id, room_id, admission_date, discharge_date, rea
 
 -- Insert Prescriptions
 INSERT INTO prescriptions (patient_id, doctor_id, prescription_date, medication, dosage, instructions, valid_until, status, notes) VALUES
-(1, 1, CURDATE(), 'Atorvastatin', '20mg', 'Take once daily at bedtime', DATE_ADD(CURDATE(), INTERVAL 30 DAY), 'ACTIVE', 'For cholesterol control'),
+(1, 1, CURDATE(), 'Atorvastatin', '20mg', 'Take once daily at bedtime', DATE_ADD(CURDATE(), INTERVAL 30 DAY), 'ACTIVE', 'For cholesterol and hypertension control'),
 (2, 2, CURDATE(), 'Sumatriptan', '50mg', 'Take as needed for migraine', DATE_ADD(CURDATE(), INTERVAL 90 DAY), 'ACTIVE', 'Max 2 doses per day'),
-(3, 3, CURDATE(), 'Amoxicillin', '250mg', 'Take 3 times daily for 7 days', DATE_ADD(CURDATE(), INTERVAL 7 DAY), 'ACTIVE', 'For ear infection');
+(3, 3, CURDATE(), 'Amoxicillin', '250mg', 'Take 3 times daily for 7 days', DATE_ADD(CURDATE(), INTERVAL 7 DAY), 'ACTIVE', 'For ear infection'),
+(4, 4, CURDATE(), 'Ibuprofen', '400mg', 'Take twice daily with food', DATE_ADD(CURDATE(), INTERVAL 14 DAY), 'ACTIVE', 'For joint pain relief'),
+(5, 1, CURDATE(), 'Lisinopril', '10mg', 'Take once daily in morning', DATE_ADD(CURDATE(), INTERVAL 30 DAY), 'ACTIVE', 'Blood pressure medication');
 
 -- Insert Medical Records
 INSERT INTO medical_records (patient_id, doctor_id, record_date, diagnosis, treatment, notes, allergies, blood_pressure, temperature, heart_rate) VALUES
-(1, 1, CURDATE(), 'Hypertension', 'Lifestyle changes and medication', 'Patient advised to reduce salt intake', 'Penicillin', '120/80', 98.6, 72),
-(2, 2, CURDATE(), 'Migraine', 'Prescribed pain relief', 'Patient reports 3 episodes per week', 'None', '110/70', 98.4, 68),
-(3, 3, CURDATE(), 'Otitis Media', 'Antibiotics prescribed', 'Right ear infection', 'None', '115/75', 99.1, 80);
+(1, 1, CURDATE(), 'Hypertension', 'Lifestyle changes and medication', 'Patient advised to reduce salt intake', 'Penicillin', '140/90', 98.6, 72),
+(2, 2, CURDATE(), 'Chronic Migraine', 'Prescribed pain relief medication', 'Patient reports 3 episodes per week', 'None', '110/70', 98.4, 68),
+(3, 3, CURDATE(), 'Otitis Media', 'Antibiotics prescribed', 'Right ear infection, improving', 'None', '115/75', 99.1, 80),
+(4, 4, CURDATE(), 'Osteoarthritis', 'Anti-inflammatory medication', 'Knee joint pain, mild swelling', 'Aspirin', '125/85', 98.2, 75),
+(5, 1, CURDATE(), 'Cardiac Risk Assessment', 'Preventive care plan', 'Family history of heart disease', 'None', '130/85', 98.5, 78);
 
 -- Insert Billing
 INSERT INTO billing (patient_id, appointment_id, amount, bill_date, status, payment_method, payment_date, insurance_claim_id, description) VALUES
-(1, 1, 150.00, CURDATE(), 'PAID', 'CREDIT_CARD', CURDATE(), 'CLM12345', 'Consultation fee'),
-(2, NULL, 2000.00, CURDATE(), 'PENDING', NULL, NULL, NULL, 'Hospital admission'),
-(3, 3, 75.00, CURDATE(), 'PAID', 'INSURANCE', CURDATE(), 'CLM67890', 'Vaccination fee'),
-(4, NULL, 3200.00, CURDATE(), 'PAID', 'BANK_TRANSFER', CURDATE(), NULL, 'Orthopedic procedure'),
-(5, NULL, 500.00, CURDATE(), 'UNPAID', NULL, NULL, NULL, 'Emergency room visit');
+(1, 1, 150.00, CURDATE(), 'PAID', 'CREDIT_CARD', CURDATE(), 'CLM12345', 'Cardiology consultation'),
+(2, 2, 200.00, CURDATE(), 'PENDING', NULL, NULL, 'CLM23456', 'Neurology consultation'),
+(3, 3, 75.00, CURDATE(), 'PAID', 'INSURANCE', CURDATE(), 'CLM34567', 'Pediatric follow-up'),
+(4, 4, 180.00, CURDATE(), 'PAID', 'BANK_TRANSFER', CURDATE(), 'CLM45678', 'Orthopedic consultation'),
+(5, 5, 120.00, CURDATE(), 'UNPAID', NULL, NULL, NULL, 'Cardiac follow-up visit');

@@ -12,6 +12,10 @@
         <!-- Welcome Screen -->
         <div id="welcomeScreen" class="welcome-screen">
             <div class="welcome-content">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                    <span id="theme-text">Dark</span>
+                </button>
                 <div class="hospital-logo">
                     <i class="fas fa-hospital-alt"></i>
                 </div>
@@ -36,6 +40,10 @@
                     </div>
                     <h2>Rearview Hospital</h2>
                     <p>Management System Login</p>
+                    <button class="theme-toggle" onclick="toggleTheme()" style="margin-top: 15px;">
+                        <i class="fas fa-moon" id="theme-icon-login"></i>
+                        <span id="theme-text-login">Dark</span>
+                    </button>
                 </div>
                 <form id="loginForm">
                     <div class="form-group">
@@ -49,6 +57,7 @@
                     <button type="submit" class="btn-primary">Sign In</button>
                 </form>
                 <div class="login-footer">
+                    <p style="margin-bottom: 10px; color: #666; font-size: 0.85rem;">Developed by <strong>Lwazi Jiyane</strong></p>
                     <button class="btn-back" onclick="showWelcomeScreen()">← Back to Welcome</button>
                 </div>
             </div>
@@ -61,6 +70,10 @@
                 <div class="header-content">
                     <h1><i class="fas fa-hospital"></i> Hospital Management System</h1>
                     <div class="user-info">
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon" id="theme-icon-header"></i>
+                            <span id="theme-text-header">Dark</span>
+                        </button>
                         <span id="userWelcome">Welcome, Admin</span>
                         <button id="logoutBtn" class="btn-secondary">Logout</button>
                     </div>
@@ -85,7 +98,13 @@
                 <section id="patients" class="content-section active">
                     <div class="section-header">
                         <h2><i class="fas fa-user-injured"></i> Patients Management</h2>
-                        <button class="btn-primary" onclick="openModal('patientModal')">Add Patient</button>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button class="theme-toggle" onclick="toggleTheme()">
+                                <i class="fas fa-moon" id="theme-icon-patients"></i>
+                                <span id="theme-text-patients">Dark</span>
+                            </button>
+                            <button class="btn-primary" onclick="openModal('patientModal')">Add Patient</button>
+                        </div>
                     </div>
                     <div class="table-container">
                         <table id="patientsTable">
@@ -108,7 +127,13 @@
                 <section id="doctors" class="content-section">
                     <div class="section-header">
                         <h2><i class="fas fa-user-md"></i> Doctors Management</h2>
-                        <button class="btn-primary" onclick="openModal('doctorModal')">Add Doctor</button>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button class="theme-toggle" onclick="toggleTheme()">
+                                <i class="fas fa-moon" id="theme-icon-doctors"></i>
+                                <span id="theme-text-doctors">Dark</span>
+                            </button>
+                            <button class="btn-primary" onclick="openModal('doctorModal')">Add Doctor</button>
+                        </div>
                     </div>
                     <div class="table-container">
                         <table id="doctorsTable">
@@ -131,7 +156,13 @@
                 <section id="appointments" class="content-section">
                     <div class="section-header">
                         <h2><i class="fas fa-calendar-check"></i> Appointments Management</h2>
-                        <button class="btn-primary" onclick="openModal('appointmentModal')">Add Appointment</button>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button class="theme-toggle" onclick="toggleTheme()">
+                                <i class="fas fa-moon" id="theme-icon-appointments"></i>
+                                <span id="theme-text-appointments">Dark</span>
+                            </button>
+                            <button class="btn-primary" onclick="openModal('appointmentModal')">Add Appointment</button>
+                        </div>
                     </div>
                     <div class="table-container">
                         <table id="appointmentsTable">
@@ -155,7 +186,13 @@
                 <section id="departments" class="content-section">
                     <div class="section-header">
                         <h2><i class="fas fa-building"></i> Departments Management</h2>
-                        <button class="btn-primary" onclick="openModal('departmentModal')">Add Department</button>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button class="theme-toggle" onclick="toggleTheme()">
+                                <i class="fas fa-moon" id="theme-icon-departments"></i>
+                                <span id="theme-text-departments">Dark</span>
+                            </button>
+                            <button class="btn-primary" onclick="openModal('departmentModal')">Add Department</button>
+                        </div>
                     </div>
                     <div class="table-container">
                         <table id="departmentsTable">
@@ -178,7 +215,13 @@
                 <section id="staff" class="content-section">
                     <div class="section-header">
                         <h2><i class="fas fa-users"></i> Staff Management</h2>
-                        <button class="btn-primary" onclick="openModal('staffModal')">Add Staff</button>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button class="theme-toggle" onclick="toggleTheme()">
+                                <i class="fas fa-moon" id="theme-icon-staff"></i>
+                                <span id="theme-text-staff">Dark</span>
+                            </button>
+                            <button class="btn-primary" onclick="openModal('staffModal')">Add Staff</button>
+                        </div>
                     </div>
                     <div class="table-container">
                         <table id="staffTable">
@@ -201,7 +244,13 @@
                 <section id="prescriptions" class="content-section">
                     <div class="section-header">
                         <h2><i class="fas fa-prescription-bottle"></i> Prescriptions Management</h2>
-                        <button class="btn-primary" onclick="openModal('prescriptionModal')">Add Prescription</button>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button class="theme-toggle" onclick="toggleTheme()">
+                                <i class="fas fa-moon" id="theme-icon-prescriptions"></i>
+                                <span id="theme-text-prescriptions">Dark</span>
+                            </button>
+                            <button class="btn-primary" onclick="openModal('prescriptionModal')">Add Prescription</button>
+                        </div>
                     </div>
                     <div class="table-container">
                         <table id="prescriptionsTable">
@@ -267,6 +316,149 @@
                         <input type="text" id="patientPolicy" placeholder="Policy Number">
                     </div>
                     <button type="submit" class="btn-primary">Save Patient</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Doctor Modal -->
+        <div id="doctorModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('doctorModal')">&times;</span>
+                <h3>Add/Edit Doctor</h3>
+                <form id="doctorForm">
+                    <input type="hidden" id="doctorId">
+                    <div class="form-row">
+                        <input type="text" id="doctorFirstName" placeholder="First Name" required>
+                        <input type="text" id="doctorLastName" placeholder="Last Name" required>
+                    </div>
+                    <input type="text" id="doctorSpecialization" placeholder="Specialization" required>
+                    <div class="form-row">
+                        <input type="tel" id="doctorPhone" placeholder="Phone Number" required>
+                        <input type="email" id="doctorEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="date" id="doctorJoiningDate" required>
+                        <input type="text" id="doctorQualification" placeholder="Qualification" required>
+                    </div>
+                    <div class="form-row">
+                        <select id="doctorDepartment" required>
+                            <option value="">Select Department</option>
+                        </select>
+                        <input type="text" id="doctorLicense" placeholder="License Number" required>
+                    </div>
+                    <input type="number" id="doctorExperience" placeholder="Years of Experience" required>
+                    <button type="submit" class="btn-primary">Save Doctor</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Appointment Modal -->
+        <div id="appointmentModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('appointmentModal')">&times;</span>
+                <h3>Add/Edit Appointment</h3>
+                <form id="appointmentForm">
+                    <input type="hidden" id="appointmentId">
+                    <div class="form-row">
+                        <select id="appointmentPatient" required>
+                            <option value="">Select Patient</option>
+                        </select>
+                        <select id="appointmentDoctor" required>
+                            <option value="">Select Doctor</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <input type="date" id="appointmentDate" required>
+                        <input type="time" id="appointmentTime" required>
+                    </div>
+                    <div class="form-row">
+                        <select id="appointmentStatus" required>
+                            <option value="SCHEDULED">Scheduled</option>
+                            <option value="CONFIRMED">Confirmed</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                        <select id="appointmentType" required>
+                            <option value="CHECKUP">Checkup</option>
+                            <option value="CONSULTATION">Consultation</option>
+                            <option value="FOLLOWUP">Follow-up</option>
+                            <option value="EMERGENCY">Emergency</option>
+                        </select>
+                    </div>
+                    <input type="number" id="appointmentDuration" placeholder="Duration (minutes)" required>
+                    <textarea id="appointmentDescription" placeholder="Description"></textarea>
+                    <button type="submit" class="btn-primary">Save Appointment</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Staff Modal -->
+        <div id="staffModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('staffModal')">&times;</span>
+                <h3>Add/Edit Staff</h3>
+                <form id="staffForm">
+                    <input type="hidden" id="staffId">
+                    <div class="form-row">
+                        <input type="text" id="staffFirstName" placeholder="First Name" required>
+                        <input type="text" id="staffLastName" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-row">
+                        <select id="staffRole" required>
+                            <option value="">Select Role</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="DOCTOR">Doctor</option>
+                            <option value="NURSE">Nurse</option>
+                            <option value="RECEPTIONIST">Receptionist</option>
+                            <option value="LAB_TECH">Lab Technician</option>
+                            <option value="PHARMACIST">Pharmacist</option>
+                        </select>
+                        <input type="tel" id="staffPhone" placeholder="Phone Number" required>
+                    </div>
+                    <input type="email" id="staffEmail" placeholder="Email" required>
+                    <input type="date" id="staffJoiningDate" required>
+                    <select id="staffDepartment">
+                        <option value="">Select Department</option>
+                    </select>
+                    <input type="text" id="staffAddress" placeholder="Address">
+                    <input type="text" id="staffQualification" placeholder="Qualification">
+                    <input type="tel" id="staffEmergencyContact" placeholder="Emergency Contact">
+                    <button type="submit" class="btn-primary">Save Staff</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Prescription Modal -->
+        <div id="prescriptionModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('prescriptionModal')">&times;</span>
+                <h3>Add/Edit Prescription</h3>
+                <form id="prescriptionForm">
+                    <input type="hidden" id="prescriptionId">
+                    <div class="form-row">
+                        <select id="prescriptionPatient" required>
+                            <option value="">Select Patient</option>
+                        </select>
+                        <select id="prescriptionDoctor" required>
+                            <option value="">Select Doctor</option>
+                        </select>
+                    </div>
+                    <input type="date" id="prescriptionDate" required>
+                    <div class="form-row">
+                        <input type="text" id="prescriptionMedication" placeholder="Medication" required>
+                        <input type="text" id="prescriptionDosage" placeholder="Dosage" required>
+                    </div>
+                    <textarea id="prescriptionInstructions" placeholder="Instructions" required></textarea>
+                    <div class="form-row">
+                        <input type="date" id="prescriptionValidUntil" required>
+                        <select id="prescriptionStatus" required>
+                            <option value="ACTIVE">Active</option>
+                            <option value="EXPIRED">Expired</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </div>
+                    <textarea id="prescriptionNotes" placeholder="Notes"></textarea>
+                    <button type="submit" class="btn-primary">Save Prescription</button>
                 </form>
             </div>
         </div>
