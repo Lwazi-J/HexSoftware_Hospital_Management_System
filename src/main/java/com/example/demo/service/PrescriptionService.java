@@ -45,4 +45,16 @@ public class PrescriptionService {
     public List<Prescription> getActivePrescriptions(Long patientId) {
         return prescriptionRepository.findActiveByPatientId(patientId);
     }
+
+    public List<Prescription> searchPrescriptions(String medication, String status, Long patientId, Long doctorId, String date) {
+        return prescriptionRepository.searchPrescriptions(medication, status, patientId, doctorId, date);
+    }
+
+    public List<Prescription> getPrescriptionsByMedication(String medication) {
+        return prescriptionRepository.findByMedication(medication);
+    }
+
+    public List<Prescription> getPrescriptionsByStatus(String status) {
+        return prescriptionRepository.findByStatus(status);
+    }
 }

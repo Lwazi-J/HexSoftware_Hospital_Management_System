@@ -67,4 +67,16 @@ public class AppointmentService {
     public List<Appointment> getAppointmentsByMonth(int year, int month) {
         return appointmentRepository.findByMonth(year, month);
     }
+
+    public List<Appointment> searchAppointments(String date, String status, String type, Long patientId, Long doctorId) {
+        return appointmentRepository.searchAppointments(date, status, type, patientId, doctorId);
+    }
+
+    public List<Appointment> getAppointmentsByDate(String date) {
+        return appointmentRepository.findByDateString(date);
+    }
+
+    public List<Appointment> getAppointmentsByStatus(String status) {
+        return appointmentRepository.findByStatus(status);
+    }
 }

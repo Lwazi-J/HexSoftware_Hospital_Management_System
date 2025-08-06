@@ -51,4 +51,20 @@ public class StaffController {
         List<Staff> staffList = staffService.getStaffByRole(role);
         return new ResponseEntity<>(staffList, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Staff>> searchStaff(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String role,
+            @RequestParam(required = false) Long departmentId,
+            @RequestParam(required = false) String qualification) {
+        List<Staff> staffList = staffService.searchStaff(name, role, departmentId, qualification);
+        return new ResponseEntity<>(staffList, HttpStatus.OK);
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<List<Staff>> getStaffByDepartment(@PathVariable Long departmentId) {
+        List<Staff> staffList = staffService.getStaffByDepartment(departmentId);
+        return new ResponseEntity<>(staffList, HttpStatus.OK);
+    }
 }

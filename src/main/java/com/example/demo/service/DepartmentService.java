@@ -43,4 +43,12 @@ public class DepartmentService {
         Department department = departmentRepository.findById(departmentId);
         return department != null ? department.getStaffCount() : 0;
     }
+
+    public List<Department> searchDepartments(String name, String location, Integer minStaffCount) {
+        return departmentRepository.searchDepartments(name, location, minStaffCount);
+    }
+
+    public List<Department> getDepartmentsByLocation(String location) {
+        return departmentRepository.findByLocation(location);
+    }
 }

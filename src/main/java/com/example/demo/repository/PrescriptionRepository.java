@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -77,6 +78,48 @@ public class PrescriptionRepository {
     public List<Prescription> findActiveByPatientId(Long patientId) {
         String sql = "SELECT * FROM prescriptions WHERE patient_id = ? AND status = 'ACTIVE'";
         return jdbcTemplate.query(sql, new Object[]{patientId}, new PrescriptionRowMapper());
+    }
+
+    public List<Prescription> searchPrescriptions(String medication, String status, Long patientId, Long doctorId, String date) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM prescriptions WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+
+        if (medication != null && !medication.trim().isEmpty()) {
+            sql.append(" AND LOWER(medication) LIKE LOWER(?)");
+            params.add("%" + medication.trim() + "%");
+        }
+
+        if (status != null && !status.trim().isEmpty()) {
+            sql.append(" AND LOWER(status) = LOWER(?)");
+            params.add(status.trim());
+        }
+
+        if (patientId != null) {
+            sql.append(" AND patient_id = ?");
+            params.add(patientId);
+        }
+
+        if (doctorId != null) {
+            sql.append(" AND doctor_id = ?");
+            params.add(doctorId);
+        }
+
+        if (date != null && !date.trim().isEmpty()) {
+            sql.append(" AND DATE(prescription_date) = ?");
+            params.add(date.trim());
+        }
+
+        return jdbcTemplate.query(sql.toString(), params.toArray(), new PrescriptionRowMapper());
+    }
+
+    public List<Prescription> findByMedication(String medication) {
+        String sql = "SELECT * FROM prescriptions WHERE LOWER(medication) LIKE LOWER(?)";
+        return jdbcTemplate.query(sql, new Object[]{"%" + medication + "%"}, new PrescriptionRowMapper());
+    }
+
+    public List<Prescription> findByStatus(String status) {
+        String sql = "SELECT * FROM prescriptions WHERE LOWER(status) = LOWER(?)";
+        return jdbcTemplate.query(sql, new Object[]{status}, new PrescriptionRowMapper());
     }
 
     private static final class PrescriptionRowMapper implements RowMapper<Prescription> {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -74,6 +75,35 @@ public class DoctorRepository {
         return jdbcTemplate.query(FIND_BY_SPECIALIZATION_SQL,
                 new Object[]{specialization},
                 new DoctorRowMapper());
+    }
+
+    public List<Doctor> searchDoctors(String name, String specialization, Long departmentId, Integer minExperience) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM doctors WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+
+        if (name != null && !name.trim().isEmpty()) {
+            sql.append(" AND (LOWER(first_name) LIKE LOWER(?) OR LOWER(last_name) LIKE LOWER(?))");
+            String searchTerm = "%" + name.trim() + "%";
+            params.add(searchTerm);
+            params.add(searchTerm);
+        }
+
+        if (specialization != null && !specialization.trim().isEmpty()) {
+            sql.append(" AND LOWER(specialization) LIKE LOWER(?)");
+            params.add("%" + specialization.trim() + "%");
+        }
+
+        if (departmentId != null) {
+            sql.append(" AND department_id = ?");
+            params.add(departmentId);
+        }
+
+        if (minExperience != null) {
+            sql.append(" AND years_of_experience >= ?");
+            params.add(minExperience);
+        }
+
+        return jdbcTemplate.query(sql.toString(), params.toArray(), new DoctorRowMapper());
     }
 
     static final class DoctorRowMapper implements RowMapper<Doctor> {

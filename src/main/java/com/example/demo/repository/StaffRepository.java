@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -88,6 +89,35 @@ public class StaffRepository {
         return jdbcTemplate.query(FIND_BY_ROLE_SQL,
                 new Object[]{role},
                 new StaffRowMapper());
+    }
+
+    public List<Staff> searchStaff(String name, String role, Long departmentId, String qualification) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM staff WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+
+        if (name != null && !name.trim().isEmpty()) {
+            sql.append(" AND (LOWER(first_name) LIKE LOWER(?) OR LOWER(last_name) LIKE LOWER(?))");
+            String searchTerm = "%" + name.trim() + "%";
+            params.add(searchTerm);
+            params.add(searchTerm);
+        }
+
+        if (role != null && !role.trim().isEmpty()) {
+            sql.append(" AND LOWER(role) LIKE LOWER(?)");
+            params.add("%" + role.trim() + "%");
+        }
+
+        if (departmentId != null) {
+            sql.append(" AND department_id = ?");
+            params.add(departmentId);
+        }
+
+        if (qualification != null && !qualification.trim().isEmpty()) {
+            sql.append(" AND LOWER(qualification) LIKE LOWER(?)");
+            params.add("%" + qualification.trim() + "%");
+        }
+
+        return jdbcTemplate.query(sql.toString(), params.toArray(), new StaffRowMapper());
     }
 
     private static final class StaffRowMapper implements RowMapper<Staff> {

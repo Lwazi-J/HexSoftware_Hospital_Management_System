@@ -53,4 +53,20 @@ public class DoctorController {
         List<Doctor> doctors = doctorService.getDoctorsBySpecialization(specialization);
         return new ResponseEntity<>(doctors, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Doctor>> searchDoctors(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String specialization,
+            @RequestParam(required = false) Long departmentId,
+            @RequestParam(required = false) Integer minExperience) {
+        List<Doctor> doctors = doctorService.searchDoctors(name, specialization, departmentId, minExperience);
+        return new ResponseEntity<>(doctors, HttpStatus.OK);
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<List<Doctor>> getDoctorsByDepartment(@PathVariable Long departmentId) {
+        List<Doctor> doctors = doctorService.getDoctorsByDepartment(departmentId);
+        return new ResponseEntity<>(doctors, HttpStatus.OK);
+    }
 }

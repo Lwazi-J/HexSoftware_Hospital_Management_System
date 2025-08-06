@@ -209,6 +209,47 @@ paths:
         '200':
           description: Doctors with specialization
 
+  /doctors/search:
+    get:
+      tags:
+        - Doctors
+      summary: Search doctors
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: specialization
+          in: query
+          schema:
+            type: string
+        - name: departmentId
+          in: query
+          schema:
+            type: integer
+        - name: minExperience
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Search results
+
+  /doctors/department/{departmentId}:
+    get:
+      tags:
+        - Doctors
+      summary: Get doctors by department
+      parameters:
+        - name: departmentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Doctors in department
+
   # Departments
   /departments:
     get:

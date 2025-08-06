@@ -60,4 +60,27 @@ public class PrescriptionController {
         List<Prescription> prescriptions = prescriptionService.getPrescriptionsByDoctor(doctorId);
         return new ResponseEntity<>(prescriptions, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Prescription>> searchPrescriptions(
+            @RequestParam(required = false) String medication,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) Long patientId,
+            @RequestParam(required = false) Long doctorId,
+            @RequestParam(required = false) String date) {
+        List<Prescription> prescriptions = prescriptionService.searchPrescriptions(medication, status, patientId, doctorId, date);
+        return new ResponseEntity<>(prescriptions, HttpStatus.OK);
+    }
+
+    @GetMapping("/medication/{medication}")
+    public ResponseEntity<List<Prescription>> getPrescriptionsByMedication(@PathVariable String medication) {
+        List<Prescription> prescriptions = prescriptionService.getPrescriptionsByMedication(medication);
+        return new ResponseEntity<>(prescriptions, HttpStatus.OK);
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<Prescription>> getPrescriptionsByStatus(@PathVariable String status) {
+        List<Prescription> prescriptions = prescriptionService.getPrescriptionsByStatus(status);
+        return new ResponseEntity<>(prescriptions, HttpStatus.OK);
+    }
 }

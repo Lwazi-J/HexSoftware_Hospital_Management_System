@@ -67,4 +67,27 @@ public class AppointmentController {
         Appointment appointment = appointmentService.updateAppointmentStatus(id, status);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Appointment>> searchAppointments(
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) Long patientId,
+            @RequestParam(required = false) Long doctorId) {
+        List<Appointment> appointments = appointmentService.searchAppointments(date, status, type, patientId, doctorId);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
+
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByDate(@PathVariable String date) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByDate(date);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByStatus(@PathVariable String status) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByStatus(status);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
 }

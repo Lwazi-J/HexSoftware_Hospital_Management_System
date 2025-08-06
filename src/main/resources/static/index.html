@@ -106,6 +106,22 @@
                             <button class="btn-primary" onclick="openModal('patientModal')">Add Patient</button>
                         </div>
                     </div>
+                    <div class="search-container">
+                        <input type="text" id="patientSearchName" placeholder="Search by name..." onkeyup="searchPatients()">
+                        <select id="patientSearchBloodType" onchange="searchPatients()">
+                            <option value="">All Blood Types</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                        <input type="text" id="patientSearchPhone" placeholder="Search by phone..." onkeyup="searchPatients()">
+                        <button class="btn-secondary" onclick="clearPatientSearch()">Clear</button>
+                    </div>
                     <div class="table-container">
                         <table id="patientsTable">
                             <thead>
@@ -135,6 +151,15 @@
                             <button class="btn-primary" onclick="openModal('doctorModal')">Add Doctor</button>
                         </div>
                     </div>
+                    <div class="search-container">
+                        <input type="text" id="doctorSearchName" placeholder="Search by name..." onkeyup="searchDoctors()">
+                        <input type="text" id="doctorSearchSpecialization" placeholder="Search by specialization..." onkeyup="searchDoctors()">
+                        <select id="doctorSearchDepartment" onchange="searchDoctors()">
+                            <option value="">All Departments</option>
+                        </select>
+                        <input type="number" id="doctorSearchExperience" placeholder="Min experience..." onkeyup="searchDoctors()">
+                        <button class="btn-secondary" onclick="clearDoctorSearch()">Clear</button>
+                    </div>
                     <div class="table-container">
                         <table id="doctorsTable">
                             <thead>
@@ -163,6 +188,18 @@
                             </button>
                             <button class="btn-primary" onclick="openModal('appointmentModal')">Add Appointment</button>
                         </div>
+                    </div>
+                    <div class="search-container">
+                        <input type="date" id="appointmentSearchDate" onchange="searchAppointments()">
+                        <select id="appointmentSearchStatus" onchange="searchAppointments()">
+                            <option value="">All Statuses</option>
+                            <option value="SCHEDULED">Scheduled</option>
+                            <option value="CONFIRMED">Confirmed</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                        <input type="text" id="appointmentSearchType" placeholder="Search by type..." onkeyup="searchAppointments()">
+                        <button class="btn-secondary" onclick="clearAppointmentSearch()">Clear</button>
                     </div>
                     <div class="table-container">
                         <table id="appointmentsTable">
@@ -194,6 +231,12 @@
                             <button class="btn-primary" onclick="openModal('departmentModal')">Add Department</button>
                         </div>
                     </div>
+                    <div class="search-container">
+                        <input type="text" id="departmentSearchName" placeholder="Search by name..." onkeyup="searchDepartments()">
+                        <input type="text" id="departmentSearchLocation" placeholder="Search by location..." onkeyup="searchDepartments()">
+                        <input type="number" id="departmentSearchStaffCount" placeholder="Min staff count..." onkeyup="searchDepartments()">
+                        <button class="btn-secondary" onclick="clearDepartmentSearch()">Clear</button>
+                    </div>
                     <div class="table-container">
                         <table id="departmentsTable">
                             <thead>
@@ -223,6 +266,22 @@
                             <button class="btn-primary" onclick="openModal('staffModal')">Add Staff</button>
                         </div>
                     </div>
+                    <div class="search-container">
+                        <input type="text" id="staffSearchName" placeholder="Search by name..." onkeyup="searchStaff()">
+                        <select id="staffSearchRole" onchange="searchStaff()">
+                            <option value="">All Roles</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="DOCTOR">Doctor</option>
+                            <option value="NURSE">Nurse</option>
+                            <option value="RECEPTIONIST">Receptionist</option>
+                            <option value="LAB_TECH">Lab Technician</option>
+                            <option value="PHARMACIST">Pharmacist</option>
+                        </select>
+                        <select id="staffSearchDepartment" onchange="searchStaff()">
+                            <option value="">All Departments</option>
+                        </select>
+                        <button class="btn-secondary" onclick="clearStaffSearch()">Clear</button>
+                    </div>
                     <div class="table-container">
                         <table id="staffTable">
                             <thead>
@@ -251,6 +310,17 @@
                             </button>
                             <button class="btn-primary" onclick="openModal('prescriptionModal')">Add Prescription</button>
                         </div>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="prescriptionSearchMedication" placeholder="Search by medication..." onkeyup="searchPrescriptions()">
+                        <select id="prescriptionSearchStatus" onchange="searchPrescriptions()">
+                            <option value="">All Statuses</option>
+                            <option value="ACTIVE">Active</option>
+                            <option value="EXPIRED">Expired</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                        <input type="date" id="prescriptionSearchDate" onchange="searchPrescriptions()">
+                        <button class="btn-secondary" onclick="clearPrescriptionSearch()">Clear</button>
                     </div>
                     <div class="table-container">
                         <table id="prescriptionsTable">
@@ -484,5 +554,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="search.js"></script>
 </body>
 </html>

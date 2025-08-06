@@ -43,4 +43,8 @@ public class DoctorService {
     public List<Doctor> getDoctorsByDepartment(Long departmentId) {
         return doctorRepository.findByDepartment(departmentId);
     }
+
+    public List<Doctor> searchDoctors(String name, String specialization, Long departmentId, Integer minExperience) {
+        return doctorRepository.searchDoctors(name, specialization, departmentId, minExperience);
+    }
 }

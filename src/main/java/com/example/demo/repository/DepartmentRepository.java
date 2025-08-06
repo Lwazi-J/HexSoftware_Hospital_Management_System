@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -61,6 +62,33 @@ public class DepartmentRepository {
         return jdbcTemplate.query(FIND_DOCTORS_BY_DEPARTMENT_SQL,
                 new Object[]{departmentId},
                 new DoctorRowMapper());
+    }
+
+    public List<Department> searchDepartments(String name, String location, Integer minStaffCount) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM departments WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+
+        if (name != null && !name.trim().isEmpty()) {
+            sql.append(" AND LOWER(name) LIKE LOWER(?)");
+            params.add("%" + name.trim() + "%");
+        }
+
+        if (location != null && !location.trim().isEmpty()) {
+            sql.append(" AND LOWER(location) LIKE LOWER(?)");
+            params.add("%" + location.trim() + "%");
+        }
+
+        if (minStaffCount != null) {
+            sql.append(" AND staff_count >= ?");
+            params.add(minStaffCount);
+        }
+
+        return jdbcTemplate.query(sql.toString(), params.toArray(), new DepartmentRowMapper());
+    }
+
+    public List<Department> findByLocation(String location) {
+        String sql = "SELECT * FROM departments WHERE LOWER(location) LIKE LOWER(?)";
+        return jdbcTemplate.query(sql, new Object[]{"%" + location + "%"}, new DepartmentRowMapper());
     }
 
     private static final class DoctorRowMapper implements RowMapper<Doctor> {

@@ -41,4 +41,8 @@ public class StaffService {
     public List<Staff> getStaffByDepartment(Long departmentId) {
         return staffRepository.findByDepartmentId(departmentId);
     }
+
+    public List<Staff> searchStaff(String name, String role, Long departmentId, String qualification) {
+        return staffRepository.searchStaff(name, role, departmentId, qualification);
+    }
 }

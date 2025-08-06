@@ -55,4 +55,19 @@ public class DepartmentController {
         List<Doctor> doctors = departmentService.getDoctorsByDepartment(id);
         return new ResponseEntity<>(doctors, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Department>> searchDepartments(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) Integer minStaffCount) {
+        List<Department> departments = departmentService.searchDepartments(name, location, minStaffCount);
+        return new ResponseEntity<>(departments, HttpStatus.OK);
+    }
+
+    @GetMapping("/location/{location}")
+    public ResponseEntity<List<Department>> getDepartmentsByLocation(@PathVariable String location) {
+        List<Department> departments = departmentService.getDepartmentsByLocation(location);
+        return new ResponseEntity<>(departments, HttpStatus.OK);
+    }
 }
